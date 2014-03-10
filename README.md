@@ -3,6 +3,7 @@ yoda
 
 Youth Oriented Development Advisor
 
+The name is a work in progress. However, this is a RESTful API that allows remote compilation of Python code. Once compiled, the code can be tested against certain conditions to determine the efficacy of the code submitted.
 
 Required Packages
 ====
@@ -13,7 +14,10 @@ Required Packages
 Installation Instructions
 ====
 
-After cloning this repository, just go to the base directory and type "python runserver.py" at the command prompt.
+After cloning this repository, just go to the base directory and type the following at the command prompt:
+```
+python runserver.py
+```
 
 Quirks
 ====

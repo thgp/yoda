@@ -19,6 +19,21 @@ After cloning this repository, just go to the base directory and type the follow
 python runserver.py
 ```
 
+Usage Instructions
+====
+
+In order to send Python code to the API, you need to use the POST variable **code**. Here's some sample POST data to use:
+```
+code=def%20f(x)%3A%20%0A%20%20%20%20return%20x*2%0A%0Af(5)
+```
+That same POST data without the url encoding looks like:
+```
+code=def f(x): 
+    return x*2
+
+f(5)
+```
+
 Quirks
 ====
 
@@ -26,3 +41,4 @@ Quirks
 2. Right now, only POST requests to the base URL works. There are no other API endpoints at this point (as it's still in prototype).
 3. Whichever HTTP client you're using, then you might have to set the **Content-Type** header to *application/x-www-form-urlencoded*.
 4. You may have to urlencode the input before sending it to the API. You can use an [online url encoder](http://meyerweb.com/eric/tools/dencoder/) if you don't want to go through the pain of doing it in Python just for testing purposes.
+5. You may have to put at least one blank line between Python statements that move backwards in the tab index. Look at the sample code above for an example what we mean.

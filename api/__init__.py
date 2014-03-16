@@ -26,3 +26,4 @@ def create_app():
     return app
 
 # Make sure you are calling create_app func below:
+app = create_app()

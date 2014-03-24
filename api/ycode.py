@@ -22,7 +22,6 @@ class TestCode(Resource):
 class GetTestCase(Resource):
 
     def __init__(self):
-        current_app.db.register([TestCase])
         super(GetTestCase, self).__init__()
 
 

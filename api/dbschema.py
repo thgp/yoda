@@ -69,7 +69,6 @@ class RootDocumentModel(Document):
 class TestCaseDocumentModel(RootDocumentModel):
     __collection__ = 'testcases'
     structure = {
-    	'testcase_id': int,
         'code': unicode,
         'description': unicode,
         'function_reference': unicode,

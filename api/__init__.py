@@ -12,6 +12,11 @@ def create_app():
     app = Flask(__name__)
     api = Api(app)
 
+
+    # Mongo DB Settings
+    app.config['MONGODB_DATABASE'] = 'yoda'
+
+
     # add api endpoint basic code evaluation
     api.add_resource(ycode.TestCode, '/')
 

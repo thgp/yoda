@@ -62,8 +62,36 @@ class RootDocumentModel(Document):
         # last_modified time to the current datetime.
         #
         # Returns: whatever the save() function returns
-        self.last_modified = datetime.utcnow()
+        self['last_modified'] = datetime.utcnow()
         return super(RootDocumentModel, self).save()
+
+    def disable(self, update_database=True):
+        # Disable a Document. This function will trigger an automatic database
+        # update unless otherwise specified.
+        #
+        # Parameters:
+        #    update_database: bool used to determine if this change should
+        #                     immediately be saved to the database or not.
+        #
+        # Returns: nothing
+        self['enabled'] = False
+
+        if update_database:
+            self.save()
+
+    def enable(self, update_database=True):
+        # Enable a Document. This function will trigger an automatic database
+        # update unless otherwise specified.
+        #
+        # Parameters:
+        #    update_database: bool used to determine if this change should
+        #                     immediately be saved to the database or not.
+        #
+        # Returns: nothing
+        self['enabled'] = True
+
+        if update_database:
+            self.save()
 
 
 class TestCaseDocumentModel(RootDocumentModel):

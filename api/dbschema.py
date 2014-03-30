@@ -1,7 +1,72 @@
 from datetime import datetime
 from flask.ext.mongokit import MongoKit, Document
 
-class TestCase(Document):
+class RootDocumentModel(Document):
+    # Foundation class for all of the MongoDB Document Object Models
+    __database__ = "yoda"
+
+    structure = {
+        'last_modified': datetime,
+        'enabled': bool
+    }
+
+    default_values = {
+        'last_modified': datetime.utcnow(),
+        'enabled': True
+    }
+
+    use_dot_notation = True
+    use_autorefs = True
+    skip_validation = False
+    use_schemaless = True
+
+    def __repr__(self):
+        # A string representation for any object.
+        #
+        # Returns: String
+        return "<%s: %s>" % (self.__class__.__name__, str(self._id))
+
+    @property
+    def created_date(self):
+        # Pull the created date out of the MongoDB object_id and return that.
+        # This value cannot be changed; it is read only.
+        #
+        # Returns: datetime.datetime
+        return self._id.generation_time
+
+    @property
+    def last_modified(self):
+        # Return the datetime this object was last modified.
+        #
+        # Returns: datetime.datetime
+        return self['last_modified']
+
+    @last_modified.setter
+    def last_modified(self, value):
+        # Set the datetime this object was last modified.
+        #
+        # Returns: nothing
+        self['last_modified'] = value
+
+    @property
+    def is_enabled(self):
+        # Is this particular document enabled or not. Instead of deleting
+        # documents from MongoDB, we should disable them. This is a
+        # read only property
+        #
+        # Returns: bool
+        return self['enabled']
+
+    def save(self):
+        # Override the base save() function to automatically set the
+        # last_modified time to the current datetime.
+        #
+        # Returns: whatever the save() function returns
+        self.last_modified = datetime.utcnow()
+        return super(RootDocumentModel, self).save()
+
+
+class TestCaseDocumentModel(RootDocumentModel):
     __collection__ = 'testcases'
     structure = {
     	'testcase_id': int,
@@ -10,9 +75,5 @@ class TestCase(Document):
         'function_reference': unicode,
         'function_student': unicode,
         'num_inputs': int,
-        'creation': datetime,
     }
     required_fields = ['code', 'function_reference', 'function_student', 'num_inputs']
-    default_values = {'creation': datetime.utcnow()}
-    use_dot_notation = True
-

@@ -5,7 +5,7 @@ from flask.ext.mongokit import MongoKit, Document
 from bson.objectid import ObjectId
 
 from shell import Shell
-from dbschema import TestCase
+from dbschema import TestCaseDocumentModel
 
 class TestCode(Resource):
     def post(self):
@@ -13,7 +13,7 @@ class TestCode(Resource):
 
     	for line in request.form['code'].split('\n'):
     		retval = sh.push(line)
-    	
+
         return {'retval': retval.strip() }
 
 
@@ -26,12 +26,12 @@ class GetTestCase(Resource):
 
 
     def get(self, testcase_id=None):
-        
+
         final = ''
         if testcase_id is None:
-            newList = list (current_app.db.TestCase.find())    
+            newList = list (current_app.db.TestCase.find())
             print newList
-            final =  {'retval' : str(len(newList)) + ' Records Located' } 
+            final =  {'retval' : str(len(newList)) + ' Records Located' }
         else:
             print   'testcase_id = ', testcase_id
 
@@ -44,7 +44,6 @@ class GetTestCase(Resource):
             else:
                 new_test_case = current_app.db.TestCase.get_from_id (valid_id)
                 print new_test_case
-                final = {'retval' : 'located - exact' } 
+                final = {'retval' : 'located - exact' }
 
         return final
-

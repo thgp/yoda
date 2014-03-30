@@ -12,10 +12,10 @@ def create_app():
     app = Flask(__name__)
     api = Api(app)
 
-    # add api endpoint testcase list and individual testcase
+    # add api endpoint basic code evaluation
     api.add_resource(ycode.TestCode, '/')
 
-    # add api endpoint testcase list and individual testcase
+    # add api endpoint testcase list view and detail view of testcase based on Object ID
     api.add_resource(ycode.GetTestCase, '/testcases', '/testcases/<string:testcase_id>')
 
     # TODO:  Check if MongoDB is up and running (this requires a unit testing framework)

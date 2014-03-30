@@ -18,7 +18,7 @@ class TestCode(Resource):
 
 
 
-# Needs more work but proves concep to database connection.
+# Fetches list view and in detail view of a Test Case.
 class GetTestCase(Resource):
 
     def __init__(self):
@@ -29,7 +29,7 @@ class GetTestCase(Resource):
 
         final = ''
         if testcase_id is None:
-            newList = list (current_app.db.TestCase.find())
+            newList = list (current_app.db.TestCaseDocumentModel.find())
             print newList
             final =  {'retval' : str(len(newList)) + ' Records Located' }
         else:
@@ -42,7 +42,7 @@ class GetTestCase(Resource):
                 final = { 'retval':  'in valid objectid' }
                 return final, 400
             else:
-                new_test_case = current_app.db.TestCase.get_from_id (valid_id)
+                new_test_case = current_app.db.TestCaseDocumentModel.get_from_id (valid_id)
                 print new_test_case
                 final = {'retval' : 'located - exact' }
 

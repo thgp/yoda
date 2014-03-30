@@ -12,13 +12,16 @@ def create_app():
     app = Flask(__name__)
     api = Api(app)
 
-
+    # add api endpoint testcase list and individual testcase
     api.add_resource(ycode.TestCode, '/')
+
+    # add api endpoint testcase list and individual testcase
     api.add_resource(ycode.GetTestCase, '/testcases', '/testcases/<string:testcase_id>')
 
     # TODO:  Check if MongoDB is up and running (this requires a unit testing framework)
     app.db = MongoKit (app)
-    # Register MongoDB - TestCase
+
+    # Register MongoDB - TestCaseDocumentModel
     app.db.register([TestCaseDocumentModel])
 
 

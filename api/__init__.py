@@ -13,10 +13,21 @@ def create_app():
     api = Api(app)
 
 
+    # Mongo DB Settings
+    app.config['MONGODB_DATABASE'] = 'yoda'
+
+
+    # add api endpoint basic code evaluation
     api.add_resource(ycode.TestCode, '/')
+
+    # add api endpoint testcase list view and detail view of testcase based on Object ID
     api.add_resource(ycode.GetTestCase, '/testcases', '/testcases/<string:testcase_id>')
 
-    # TODO:  Check if MongoDB is up and running (this requires a unit testing framework)
+    # add api endpoint to create a testcase
+    api.add_resource(ycode.NewTestCase, '/testcase/new' )
+
+
+    # TODO:  Check if MongoDB is up and running
     app.db = MongoKit (app)
 
     # Register MongoDB documents

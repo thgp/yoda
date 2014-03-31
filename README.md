@@ -36,6 +36,12 @@ code=def f(x):
 f(5)
 ```
 
+api endpoint: testcase/new - sample test string
+```
+code=def%20f(x)%3A%20%0A%20%20%20%20return%20x*2&function_reference=f_sol&function_student=f&num_inputs=2
+```
+
+
 Quirks
 ====
 

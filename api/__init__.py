@@ -3,7 +3,7 @@ from flask.ext.restful import Api
 from flask.ext.mongokit import MongoKit, Document
 
 # import database schema(s)
-from dbschema import TestCaseDocumentModel
+from dbschema import *
 
 import ycode
 
@@ -18,7 +18,11 @@ def create_app():
 
     # TODO:  Check if MongoDB is up and running (this requires a unit testing framework)
     app.db = MongoKit (app)
-    # Register MongoDB - TestCase
+
+    # Register MongoDB documents
+    app.db.register([RootDocumentModel])
+    app.db.register([CodeDocumentModel])
+    app.db.register([CodeSetDocumentModel])
     app.db.register([TestCaseDocumentModel])
 
 

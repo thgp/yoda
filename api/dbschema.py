@@ -94,6 +94,35 @@ class RootDocumentModel(Document):
             self.save()
 
 
+class CodeDocumentModel(RootDocumentModel):
+    # A mongo document model to store individual
+    __collection__ = 'code'
+
+    structure = {
+        'code': unicode,
+        'is_valid_syntax': bool
+    }
+
+    required_fields = ['code']
+
+    @property
+    def has_syntax_been_checked():
+        # Determines if the syntax has been checked for this instance of
+        # code. If the is_valid_syntax boolean is equal to None, then it's
+        # never been syntax checked.
+        return is_valid_syntax != None
+
+
+class CodeSetDocumentModel(RootDocumentModel):
+    # A mongo document model to store all references to all versions of a
+    # piece of code.
+    __collection__ = 'code'
+
+    structure = {
+        'versions': [CodeDocumentModel]
+    }
+
+
 class TestCaseDocumentModel(RootDocumentModel):
     __collection__ = 'testcases'
     structure = {
